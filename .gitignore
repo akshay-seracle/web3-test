@@ -1,0 +1,14 @@
+node_modules
+uploads
+.env
+*.log
+.audit.json
+.DS_Store
+.idea/
+config.json
+package-lock.json
+.history/
+.vscode/
+*heapsnapshot
+envs
+test.js

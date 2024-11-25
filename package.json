@@ -1,0 +1,37 @@
+{
+    "name": "test-justin",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "./node_modules/.bin/eslint --fix ."
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "async": "2.6.0",
+        "axios": "^0.22.0",
+        "big-integer": "^1.6.52",
+        "bignumber.js": "^9.1.2",
+        "body-parser": "1.18.2",
+        "bs58": "^5.0.0",
+        "cookie-parser": "1.4.3",
+        "cors": "^2.8.4",
+        "crypto-js": "^4.1.1",
+        "dotenv": "^16.0.3",
+        "ethers": "^6.13.3",
+        "express": "4.16.2",
+        "helmet": "3.9.0",
+        "method-override": "2.3.10",
+        "mongodb": "3.1.1",
+        "on-headers": "^1.0.1",
+        "uuid": "^8.3.0",
+        "web3": "^4.13.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0",
+        "eslint-plugin-require-path-exists": "^1.1.9",
+        "eslint-plugin-sort-keys-fix": "^1.1.2"
+    }
+}
