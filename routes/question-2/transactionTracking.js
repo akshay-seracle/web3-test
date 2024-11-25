@@ -4,6 +4,8 @@ const config = require('../../configurations/config')();
 
 const db = config.getDB();
 
+const LIMIT = 5;
+
 async function transactionTracking(req, res) {
     let wallet_address = req.body.wallet_address;
 
@@ -15,22 +17,16 @@ async function transactionTracking(req, res) {
 
     wallet_address = wallet_address.trim().toLowerCase();
 
-    await getTransactionsByAccount(wallet_address, null, null);
+    const transactions = await getTransactionsByAccount(wallet_address, null, null, LIMIT);
 
-    const transactions = await getTransactionsByAccount(wallet_address, null, null);
+    console.log('Transactions found: ' + transactions);
 
-    if (transactions.length > 0) {
+    if (transactions.length > 0) 
         await db.collection('transactions').insertMany(transactions);
-
-        return res.status(200).send({
-            message: 'Transactions found'
-        });
-    }
-    else {
-        return res.status(404).send({
-            message: 'Transactions not found'
-        });
-    }
+    
+    return res.status(200).send({
+        message: `${transactions.length} transactions found`
+    });
 }
 
 module.exports = transactionTracking;

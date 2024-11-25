@@ -54,53 +54,49 @@ const onSingalInterruptedHandler = (server) => {
     });
 };
 
-config.init((err) => {
-    if (err)
-        console.error(err);
+(async () => {
+    await config.init();
+    const app = express();
 
-    else {
-        const app = express();
+    const server = http.Server(app);
 
-        const server = http.Server(app);
+    app.use(cors());
+    app.use(cookieParser());
 
-        app.use(cors());
-        app.use(cookieParser());
+    const routes = require('./routes');
 
-        const routes = require('./routes');
+    app.use(bodyParser.json({
+        extended: 'true',
+        limit: '14mb'
+    }));
 
-        app.use(bodyParser.json({
-            extended: 'true',
-            limit: '14mb'
-        }));
+    app.use(bodyParser.urlencoded({
+        extended: 'true',
+        limit: '14mb'
+    }));
 
-        app.use(bodyParser.urlencoded({
-            extended: 'true',
-            limit: '14mb'
-        }));
+    app.use(methodOverride());
+    app.use(helmet());
 
-        app.use(methodOverride());
-        app.use(helmet());
+    app.use(corsMiddleware);
+    app.use(logHeaders);
 
-        app.use(corsMiddleware);
-        app.use(logHeaders);
+    // needed for rate limiter
+    app.set('trust proxy', 1);
 
-        // needed for rate limiter
-        app.set('trust proxy', 1);
+    app.use(express.static('public'));
 
-        app.use(express.static('public'));
+    app.use('/', routes);
 
-        app.use('/', routes);
+    const PORT = 1234;
 
-        const PORT = 1234;
+    server.listen(PORT, () => {
+        console.log(`listening on *:${PORT}`);
+    });
 
-        server.listen(PORT, () => {
-            console.log(`listening on *:${PORT}`);
-        });
+    process.on('SIGINT', () => {
+        console.log('SIGINT signal received.');
 
-        process.on('SIGINT', () => {
-            console.log('SIGINT signal received.');
-
-            onSingalInterruptedHandler(server);
-        });
-    }
-});
+        onSingalInterruptedHandler(server);
+    });
+})();

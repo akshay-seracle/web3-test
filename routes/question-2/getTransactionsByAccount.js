@@ -3,7 +3,7 @@ const getBlockNumberHelper = require('./getBlockNumberHelper');
 const getBlockHelper = require('./getBlockHelper');
 const parseRawTransaction = require('./parseRawTransaction');
 
-async function getTransactionsByAccount(wallet_address, startBlockNumber, endBlockNumber) {
+async function getTransactionsByAccount(wallet_address, startBlockNumber, endBlockNumber, limit) {
     if (nullChecker(endBlockNumber)) {
         endBlockNumber = await getBlockNumberHelper();
         console.log('Using endBlockNumber: ' + endBlockNumber);
@@ -29,15 +29,22 @@ async function getTransactionsByAccount(wallet_address, startBlockNumber, endBlo
         if (nullChecker(block_info.transactions))
             continue;
 
-        block_info.transactions.forEach(function(e) {
+        for (let j = 0; j < block_info.transactions.length; j++) {
+            const raw_transaction = block_info.transactions[j];
             // console.log(e.from, e.to);
 
-            if (wallet_address === '*' || wallet_address === e.from || wallet_address === e.to) {
-                const transaction = parseRawTransaction(e, block_info);
+            if (wallet_address === '*' || wallet_address === raw_transaction.from || wallet_address === raw_transaction.to) {
+                const transaction = parseRawTransaction(wallet_address, raw_transaction, block_info);
                 
                 transactions.push(transaction);
+
+                if (transactions.length === limit)
+                    break;
             }
-        });
+        }
+
+        if (transactions.length === limit)
+            break;
     }
 
     return transactions;

@@ -8,43 +8,18 @@ require('dotenv').config({
 });
 
 const MongoClient = require('mongodb').MongoClient;
-const _async = require('async');
 
 module.exports = function Config() {
     const vm = this;
 
-    vm.init = function init(done) {
-        _async.waterfall([
-            (waterfallCallback) => {
-                if (!process.env.MAIN_DATABASE_URL)
-                    console.error('MAIN_DATABASE_URL is missing');
+    vm.init = async function init() {
+        mongoClient = new MongoClient(process.env.MAIN_DATABASE_URL);
+        
+        await mongoClient.connect();
 
-                MongoClient.connect(process.env.MAIN_DATABASE_URL, {
-                    useNewUrlParser: true
-                }, (err, _db) => {
-                    if (err)
-                        waterfallCallback(err);
-
-                    else {
-                        mongoClient = _db;
-                        db = _db.db();
-
-                        console.log('Main database connected');
-
-                        waterfallCallback(null);
-                    }
-                });
-            }
-        ], (err) => {
-            if (err) {
-                console.error('Error getting configurations');
-                console.error(err);
-                done(err);
-            }
-
-            else
-                done();
-        });
+        db = mongoClient.db(process.env.MAIN_DATABASE_NAME);
+        
+        console.log('Main database connected');
     };
 
     vm.getConfig = function () {
