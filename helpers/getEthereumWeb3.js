@@ -6,9 +6,7 @@ require('dotenv').config({
     path: '.env'
 });
 
-function getEthereumWeb3(chain) {
-    console.log('getEthereumWeb3:', chain);
-
+function getEthereumWeb3() {
     const provider = new Web3.providers.HttpProvider(process.env.ETHEREUM_RPC_URL);
 
     const web3 = new Web3(provider);

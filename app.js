@@ -89,7 +89,7 @@ config.init((err) => {
 
         app.use(express.static('public'));
 
-        app.use(process.env.SERVER_URL_PREFIX, routes);
+        app.use('/', routes);
 
         const PORT = 1234;
 

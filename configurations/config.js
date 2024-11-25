@@ -3,6 +3,10 @@ let db;
 
 let mongoClient;
 
+require('dotenv').config({
+    path: '.env'
+});
+
 const MongoClient = require('mongodb').MongoClient;
 const _async = require('async');
 

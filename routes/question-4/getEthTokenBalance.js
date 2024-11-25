@@ -2,9 +2,9 @@ require('dotenv').config({
     path: 'envs/plume.env'
 });
 
-const getTokenDecimals = require('../../helpers/getTokenDecimals');
-const parseBigNumber = require('../../helpers/parseBigNumber');
-const getAbiFile = require('../../helpers/getAbiFile');
+const getTokenDecimals = require('../../helpers/getTokenDecimals.js');
+const parseBigNumber = require('../../helpers/parseBigNumber.js');
+const getAbiFile = require('../../helpers/getAbiFile.js');
 const getEthereumWeb3 = require('../../helpers/getEthereumWeb3.js');
 
 async function getEthTokenBalance(chain, wallet_address, token_address) {
