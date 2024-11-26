@@ -1,4 +1,4 @@
-const nullChecker = require('../../helpers/nullChecker');
+const nullChecker = require('./nullChecker');
 const getBlockNumberHelper = require('./getBlockNumberHelper');
 const getBlockHelper = require('./getBlockHelper');
 const parseRawTransaction = require('./parseRawTransaction');

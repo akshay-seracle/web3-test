@@ -1,4 +1,4 @@
-const parseBigNumber = require('../../helpers/parseBigNumber');
+const parseBigNumber = require('./parseBigNumber');
 
 function parseRawTransaction(wallet_address, raw_transaction, block_info) {
     const transaction = {

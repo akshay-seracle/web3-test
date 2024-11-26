@@ -1,4 +1,4 @@
-const getEthereumWeb3 = require('../../helpers/getEthereumWeb3');
+const getEthereumWeb3 = require('./getEthereumWeb3');
 
 async function getBlockHelper(blockNumber) {
     const web3 = getEthereumWeb3();

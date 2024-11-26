@@ -1,5 +1,5 @@
 const nullChecker = require('../../helpers/nullChecker');
-const getTransactionsByAccount = require('./getTransactionsByAccount');
+const getTransactionsByAccount = require('../../helpers/getTransactionsByAccount');
 const config = require('../../configurations/config')();
 
 const db = config.getDB();

@@ -1,5 +1,5 @@
-const getEthereumWeb3 = require('../../helpers/getEthereumWeb3');
-const parseBigNumber = require('../../helpers/parseBigNumber');
+const getEthereumWeb3 = require('./getEthereumWeb3');
+const parseBigNumber = require('./parseBigNumber');
 
 async function getBlockNumberHelper() {
     const web3 = getEthereumWeb3();
